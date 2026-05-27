@@ -31,3 +31,109 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* ─── Logo blend ─── */
+.logo-blend {
+  mix-blend-mode: multiply;
+}
+
+/* ─── Glassmorphism ─── */
+.glass {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* ─── 3D perspective transforms ─── */
+.tilt-left {
+  transform: perspective(800px) rotateY(-5deg) rotateX(3deg);
+}
+
+.tilt-right {
+  transform: perspective(800px) rotateY(5deg) rotateX(-2deg);
+}
+
+.tilt-hero {
+  transform: perspective(800px) rotateY(-5deg) rotateX(3deg);
+  transition: transform 0.5s ease;
+}
+
+.tilt-hero:hover {
+  transform: perspective(800px) rotateY(-2deg) rotateX(1deg) scale(1.02);
+}
+
+/* ─── Floating blob animations ─── */
+@keyframes float-slow {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(15px, -20px) scale(1.05);
+  }
+  50% {
+    transform: translate(-10px, -35px) scale(0.95);
+  }
+  75% {
+    transform: translate(20px, -15px) scale(1.02);
+  }
+}
+
+@keyframes float-slower {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(-20px, -25px) scale(1.08);
+  }
+  66% {
+    transform: translate(15px, -40px) scale(0.93);
+  }
+}
+
+@keyframes float-drift {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(10px, -15px) rotate(5deg);
+  }
+  50% {
+    transform: translate(-5px, -25px) rotate(-3deg);
+  }
+  75% {
+    transform: translate(15px, -10px) rotate(2deg);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+.animate-float-slower {
+  animation: float-slower 12s ease-in-out infinite;
+}
+
+.animate-float-drift {
+  animation: float-drift 10s ease-in-out infinite;
+}
+
+/* ─── Gradient orb ─── */
+.gradient-orb {
+  background: radial-gradient(circle, rgba(143, 181, 115, 0.25) 0%, rgba(143, 181, 115, 0) 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.gradient-orb-pink {
+  background: radial-gradient(circle, rgba(244, 180, 180, 0.2) 0%, rgba(244, 180, 180, 0) 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}

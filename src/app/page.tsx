@@ -15,13 +15,14 @@ const fadeUp = {
 };
 
 const stagger = {
-  visible: { transition: { staggerChildren: 0.1 } },
+  visible: { transition: { staggerChildren: 0.12 } },
 };
 
 /* ─── menu data ─── */
 type MenuItem = { name: string; price: string; note?: string };
 type MenuCategory = {
   title: string;
+  emoji: string;
   accent: string;
   bg: string;
   items: MenuItem[];
@@ -30,8 +31,9 @@ type MenuCategory = {
 const menu: MenuCategory[] = [
   {
     title: "Signature",
+    emoji: "\u2728",
     accent: "text-matcha",
-    bg: "bg-matcha-pale/60",
+    bg: "bg-matcha-pale/30",
     items: [
       { name: "Chrome Latte", price: "$6.50" },
       { name: "Chrome Matcha", price: "$7.00" },
@@ -45,8 +47,9 @@ const menu: MenuCategory[] = [
   },
   {
     title: "Coffee",
+    emoji: "\u2615",
     accent: "text-coffee",
-    bg: "bg-coffee-pale/60",
+    bg: "bg-coffee-pale/30",
     items: [
       { name: "Batch Brew", price: "$4.00" },
       { name: "Cold Brew", price: "$5.00" },
@@ -54,8 +57,9 @@ const menu: MenuCategory[] = [
   },
   {
     title: "Espresso",
+    emoji: "\u2615",
     accent: "text-coffee",
-    bg: "bg-coffee-pale/60",
+    bg: "bg-coffee-pale/30",
     items: [
       { name: "Espresso", price: "$4.00" },
       { name: "Americano", price: "$4.50" },
@@ -71,8 +75,9 @@ const menu: MenuCategory[] = [
   },
   {
     title: "Matcha",
+    emoji: "\ud83c\udf75",
     accent: "text-matcha",
-    bg: "bg-matcha-pale/60",
+    bg: "bg-matcha-pale/30",
     items: [
       { name: "Matcha Latte", price: "$6.00" },
       { name: "Strawberry Matcha", price: "$6.50" },
@@ -83,8 +88,9 @@ const menu: MenuCategory[] = [
   },
   {
     title: "Tea",
+    emoji: "\ud83e\uddc2",
     accent: "text-matcha",
-    bg: "bg-matcha-pale/40",
+    bg: "bg-matcha-pale/20",
     items: [
       { name: "Genmaicha", price: "$5.00" },
       { name: "Jasmine", price: "$4.25" },
@@ -96,8 +102,9 @@ const menu: MenuCategory[] = [
   },
   {
     title: "Non-Coffee",
+    emoji: "\ud83c\udf53",
     accent: "text-pink-400",
-    bg: "bg-pink-50/60",
+    bg: "bg-pink-50/30",
     items: [
       { name: "Strawberry Milk", price: "$4.50" },
       { name: "Strawberry Ade", price: "$4.50" },
@@ -105,22 +112,15 @@ const menu: MenuCategory[] = [
   },
   {
     title: "Grab N Go",
+    emoji: "\ud83d\udca7",
     accent: "text-sky-500",
-    bg: "bg-sky-50/60",
+    bg: "bg-sky-50/30",
     items: [
       { name: "Strange Water", price: "$5.00" },
       { name: "Perrier", price: "$2.50" },
       { name: "Mountain Valley", price: "$3.50" },
     ],
   },
-];
-
-/* ─── photos for strip ─── */
-const photos = [
-  { src: "/images/matcha.png", alt: "Matcha latte with Chrome branding" },
-  { src: "/images/stacked-drinks.png", alt: "Stacked Chrome Coffee drinks" },
-  { src: "/images/matcha.png", alt: "Chrome matcha close-up" },
-  { src: "/images/stacked-drinks.png", alt: "Friends holding Chrome drinks" },
 ];
 
 /* ─── component ─── */
@@ -130,91 +130,159 @@ export default function Home() {
   return (
     <main className="overflow-x-hidden">
       {/* ── HERO ── */}
-      <section className="min-h-[100dvh] flex flex-col items-center justify-center px-6 py-20 bg-cream relative">
+      <section className="min-h-[100dvh] flex flex-col items-center justify-center px-6 py-20 relative"
+        style={{
+          background: "linear-gradient(180deg, #faf9f6 0%, #f0f5eb 50%, #e8f0e0 100%)",
+        }}
+      >
+        {/* Floating decorative blobs */}
+        <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-matcha/10 animate-float-slow pointer-events-none" />
+        <div className="absolute top-40 right-16 w-20 h-20 rounded-full bg-matcha/15 animate-float-slower pointer-events-none" />
+        <div className="absolute bottom-40 left-1/4 w-16 h-16 rounded-full bg-matcha-pale/60 animate-float-drift pointer-events-none" />
+        <div className="absolute top-1/3 right-1/4 w-10 h-10 rounded-full bg-matcha/8 animate-float-slow pointer-events-none" style={{ animationDelay: "2s" }} />
+        <div className="absolute bottom-60 right-10 w-24 h-24 rounded-full bg-matcha-light/15 animate-float-slower pointer-events-none" style={{ animationDelay: "4s" }} />
+
         <motion.div
           initial="hidden"
           animate="visible"
           variants={stagger}
-          className="flex flex-col items-center text-center max-w-2xl mx-auto"
+          className="flex flex-col items-center text-center max-w-2xl mx-auto relative z-10"
         >
+          {/* Logo with blend mode -- no container box */}
           <motion.div variants={fadeUp}>
             <Image
               src="/images/logo.png"
               alt="Chrome Coffee Studio logo"
-              width={280}
-              height={120}
-              className="w-56 sm:w-72 h-auto mb-6"
+              width={320}
+              height={140}
+              className="w-60 sm:w-80 h-auto mb-4 logo-blend"
               priority
             />
           </motion.div>
 
+          {/* Tagline */}
           <motion.p
             variants={fadeUp}
-            className="text-lg sm:text-xl text-neutral-500 font-medium mb-10 tracking-wide"
+            className="text-lg sm:text-xl text-neutral-400 font-medium mb-12 tracking-wide"
           >
-            Torrance&apos;s favorite coffee studio.
+            Torrance&apos;s favorite coffee studio
           </motion.p>
 
-          <motion.div variants={fadeUp} className="mb-12">
-            <Image
-              src="/images/stacked-drinks.png"
-              alt="Three Chrome Coffee drinks stacked together"
-              width={500}
-              height={600}
-              className="w-72 sm:w-96 h-auto rounded-3xl shadow-xl"
-              priority
-            />
+          {/* Hero photo with 3D tilt */}
+          <motion.div
+            variants={fadeUp}
+            className="mb-14"
+          >
+            <div className="tilt-hero">
+              <Image
+                src="/images/stacked-drinks.png"
+                alt="Three Chrome Coffee drinks stacked together"
+                width={500}
+                height={600}
+                className="w-72 sm:w-96 h-auto rounded-3xl"
+                style={{
+                  boxShadow: "0 25px 60px -12px rgba(143, 181, 115, 0.3), 0 12px 30px -8px rgba(0,0,0,0.1)",
+                }}
+                priority
+              />
+            </div>
           </motion.div>
 
-          <motion.a
-            variants={fadeUp}
-            href="#menu"
-            className="bg-matcha text-white font-bold text-base sm:text-lg px-8 py-3.5 rounded-full shadow-lg hover:bg-matcha-light hover:scale-105 active:scale-95 transition-all duration-300"
-          >
-            View Menu
-          </motion.a>
+          {/* Pill CTAs */}
+          <motion.div variants={fadeUp} className="flex flex-wrap gap-4 justify-center">
+            <a
+              href="#menu"
+              className="bg-matcha text-white font-bold text-base px-8 py-3.5 rounded-full shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300"
+            >
+              View Menu
+            </a>
+            <a
+              href="#visit"
+              className="bg-matcha-pale text-matcha font-bold text-base px-8 py-3.5 rounded-full shadow-sm hover:shadow-md hover:scale-105 active:scale-95 transition-all duration-300 border border-matcha/20"
+            >
+              Find Us
+            </a>
+          </motion.div>
         </motion.div>
 
         {/* soft gradient at bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-cream-dark to-transparent pointer-events-none" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-cream-dark to-transparent pointer-events-none" />
       </section>
 
-      {/* ── PHOTO STRIP ── */}
-      <section className="py-12 bg-cream-dark">
-        <div className="flex gap-5 overflow-x-auto px-6 hide-scrollbar snap-x snap-mandatory">
-          {photos.map((p, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className={`flex-shrink-0 snap-center ${
-                i % 2 === 0
-                  ? "w-60 h-72 sm:w-72 sm:h-80"
-                  : "w-52 h-64 sm:w-64 sm:h-72"
-              } relative rounded-3xl overflow-hidden shadow-md`}
-            >
-              <Image
-                src={p.src}
-                alt={p.alt}
-                fill
-                className="object-cover"
-                sizes="(max-width: 640px) 240px, 288px"
-              />
-            </motion.div>
-          ))}
-        </div>
-      </section>
+      {/* ── THE VIBES -- BENTO PHOTO SECTION ── */}
+      <section className="py-16 sm:py-24 px-6 bg-cream-dark relative overflow-hidden">
+        {/* Background orb */}
+        <div className="absolute top-0 right-0 w-96 h-96 gradient-orb animate-float-slower" />
 
-      {/* ── MENU ── */}
-      <section id="menu" className="py-20 sm:py-28 px-6 bg-cream">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
           variants={stagger}
           className="max-w-4xl mx-auto"
+        >
+          <motion.p
+            variants={fadeUp}
+            className="text-center text-sm font-semibold text-matcha tracking-widest uppercase mb-10"
+          >
+            the vibes ✨
+          </motion.p>
+
+          {/* Bento grid with 2 photos */}
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-6 items-center">
+            {/* Matcha photo -- larger, tilted left */}
+            <motion.div
+              variants={fadeUp}
+              className="md:col-span-3 relative"
+            >
+              <div className="tilt-left">
+                <Image
+                  src="/images/matcha.png"
+                  alt="Matcha latte with Chrome branding"
+                  width={600}
+                  height={700}
+                  className="w-full h-auto rounded-3xl"
+                  style={{
+                    boxShadow: "0 20px 50px -12px rgba(143, 181, 115, 0.25), 0 8px 24px -8px rgba(0,0,0,0.08)",
+                  }}
+                />
+              </div>
+            </motion.div>
+
+            {/* Stacked drinks -- smaller, tilted right */}
+            <motion.div
+              variants={fadeUp}
+              className="md:col-span-2 relative"
+            >
+              <div className="tilt-right">
+                <Image
+                  src="/images/stacked-drinks.png"
+                  alt="Stacked Chrome Coffee drinks"
+                  width={400}
+                  height={500}
+                  className="w-full h-auto rounded-3xl"
+                  style={{
+                    boxShadow: "0 20px 50px -12px rgba(143, 181, 115, 0.2), 0 8px 24px -8px rgba(0,0,0,0.06)",
+                  }}
+                />
+              </div>
+            </motion.div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* ── MENU ── */}
+      <section id="menu" className="py-20 sm:py-28 px-6 bg-cream relative">
+        {/* Background orb */}
+        <div className="absolute top-1/4 left-0 w-80 h-80 gradient-orb animate-float-slow" />
+        <div className="absolute bottom-1/4 right-0 w-64 h-64 gradient-orb-pink animate-float-slower" />
+
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={stagger}
+          className="max-w-4xl mx-auto relative z-10"
         >
           <motion.h2
             variants={fadeUp}
@@ -229,15 +297,18 @@ export default function Home() {
             Good drinks, good energy.
           </motion.p>
 
-          <div className="grid gap-8 sm:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-2">
             {menu.map((cat) => (
               <motion.div
                 key={cat.title}
                 variants={fadeUp}
-                className={`${cat.bg} rounded-3xl p-6 sm:p-8 shadow-sm`}
+                className={`glass rounded-3xl p-6 sm:p-8 ${cat.bg}`}
+                style={{
+                  boxShadow: "0 4px 24px -4px rgba(0,0,0,0.04)",
+                }}
               >
                 <h3 className={`text-xl font-bold mb-5 ${cat.accent}`}>
-                  {cat.title}
+                  {cat.emoji} {cat.title}
                 </h3>
                 <ul className="space-y-3">
                   {cat.items.map((item) => (
@@ -266,7 +337,7 @@ export default function Home() {
           <motion.div variants={fadeUp} className="mt-12 text-center">
             <button
               onClick={() => setMenuImageOpen(true)}
-              className="inline-flex items-center gap-2 bg-white border-2 border-matcha text-matcha font-bold px-6 py-3 rounded-full hover:bg-matcha hover:text-white transition-all duration-300 shadow-sm hover:shadow-md"
+              className="inline-flex items-center gap-2 glass border border-matcha/30 text-matcha font-bold px-6 py-3 rounded-full hover:bg-matcha hover:text-white transition-all duration-300 shadow-sm hover:shadow-md"
             >
               <svg
                 className="w-5 h-5"
@@ -318,63 +389,92 @@ export default function Home() {
       )}
 
       {/* ── ABOUT / VIBE ── */}
-      <section className="py-20 sm:py-28 px-6 bg-cream-dark">
+      <section className="py-20 sm:py-28 px-6 bg-cream-dark relative overflow-hidden">
+        {/* Background orbs */}
+        <div className="absolute bottom-0 left-10 w-72 h-72 gradient-orb animate-float-slow" />
+        <div className="absolute top-10 right-10 w-48 h-48 gradient-orb-pink animate-float-drift" />
+
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
           variants={stagger}
-          className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-12"
+          className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-12 relative z-10"
         >
+          {/* Matcha photo with rotation */}
           <motion.div variants={fadeUp} className="md:w-1/2">
-            <Image
-              src="/images/matcha.png"
-              alt="Chrome Coffee matcha latte"
-              width={500}
-              height={600}
-              className="rounded-3xl shadow-xl w-full h-auto"
-            />
+            <div style={{ transform: "rotate(-3deg)" }}>
+              <Image
+                src="/images/matcha.png"
+                alt="Chrome Coffee matcha latte"
+                width={500}
+                height={600}
+                className="w-full h-auto rounded-3xl"
+                style={{
+                  boxShadow: "0 25px 60px -12px rgba(143, 181, 115, 0.3), 0 12px 30px -8px rgba(0,0,0,0.1)",
+                }}
+              />
+            </div>
           </motion.div>
+
           <motion.div
             variants={fadeUp}
             className="md:w-1/2 text-center md:text-left"
           >
-            <h2 className="text-3xl sm:text-4xl font-extrabold mb-5">
-              More than just coffee.
+            <h2 className="text-3xl sm:text-4xl font-extrabold mb-5 leading-tight">
+              not your average
+              <br />
+              coffee shop.
             </h2>
-            <p className="text-neutral-500 text-base sm:text-lg leading-relaxed mb-4">
-              Chrome Coffee Studio is your neighborhood spot for good energy,
-              beautiful drinks, and a vibe that just feels right.
+            <p className="text-neutral-500 text-lg sm:text-xl leading-relaxed mb-3 font-medium">
+              we&apos;re a whole vibe.
             </p>
-            <p className="text-neutral-500 text-base sm:text-lg leading-relaxed mb-6">
-              Whether you&apos;re here for our signature Chrome Matcha, a creamy
-              latte, or just a moment to breathe &mdash; we&apos;ve got you.
-              Come for the coffee, stay for the aesthetic.
+            <p className="text-neutral-400 text-base sm:text-lg leading-relaxed mb-8">
+              matcha-obsessed, aesthetic-driven, and serving the kind of drinks
+              you can&apos;t help but photograph. come for the chrome matcha,
+              stay because it just feels right.
             </p>
-            <div className="flex flex-wrap gap-3 justify-center md:justify-start">
+
+            <div className="flex flex-wrap gap-3 justify-center md:justify-start mb-8">
               {["matcha lover", "good vibes", "aesthetic", "community"].map(
                 (tag) => (
                   <span
                     key={tag}
-                    className="bg-matcha-pale text-matcha font-semibold text-sm px-4 py-1.5 rounded-full"
+                    className="glass bg-matcha-pale/40 text-matcha font-semibold text-sm px-4 py-1.5 rounded-full"
                   >
                     {tag}
                   </span>
                 )
               )}
             </div>
+
+            {/* IG CTA */}
+            <a
+              href="https://www.instagram.com/chrome.coffee.studio/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-matcha font-bold text-base hover:underline transition-all"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+              </svg>
+              follow the vibes @chrome.coffee.studio
+            </a>
           </motion.div>
         </motion.div>
       </section>
 
       {/* ── VISIT US ── */}
-      <section className="py-20 sm:py-28 px-6 bg-cream">
+      <section id="visit" className="py-20 sm:py-28 px-6 bg-cream relative overflow-hidden">
+        {/* Background gradient orb for depth */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] gradient-orb animate-float-slower" />
+
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
           variants={stagger}
-          className="max-w-2xl mx-auto text-center"
+          className="max-w-2xl mx-auto text-center relative z-10"
         >
           <motion.h2
             variants={fadeUp}
@@ -391,52 +491,68 @@ export default function Home() {
 
           <motion.div
             variants={fadeUp}
-            className="bg-white rounded-3xl shadow-sm p-8 sm:p-10 space-y-5"
+            className="glass-strong rounded-3xl p-8 sm:p-10 space-y-5"
+            style={{
+              boxShadow: "0 8px 32px -4px rgba(143, 181, 115, 0.12), 0 4px 16px -4px rgba(0,0,0,0.04)",
+            }}
           >
             <div>
               <h3 className="font-bold text-lg mb-1">Location</h3>
               <p className="text-neutral-500">Torrance, CA</p>
             </div>
-            <div className="w-16 h-px bg-neutral-200 mx-auto" />
+            <div className="w-16 h-px bg-neutral-200/60 mx-auto" />
             <div>
               <h3 className="font-bold text-lg mb-1">Hours</h3>
               <p className="text-neutral-500">
                 Mon &ndash; Sun &middot; 7am &ndash; 5pm
               </p>
             </div>
-            <div className="w-16 h-px bg-neutral-200 mx-auto" />
-            <a
-              href="https://www.google.com/maps/search/Chrome+Coffee+Studio+Torrance+CA"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-matcha text-white font-bold px-6 py-3 rounded-full hover:bg-matcha-light hover:scale-105 active:scale-95 transition-all duration-300 shadow-sm"
-            >
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                viewBox="0 0 24 24"
+            <div className="w-16 h-px bg-neutral-200/60 mx-auto" />
+            <div className="flex flex-wrap gap-3 justify-center pt-2">
+              <a
+                href="https://www.google.com/maps/search/Chrome+Coffee+Studio+Torrance+CA"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-matcha text-white font-bold px-6 py-3 rounded-full hover:bg-matcha-light hover:scale-105 active:scale-95 transition-all duration-300 shadow-sm"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-              </svg>
-              Find Us
-            </a>
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                Find Us
+              </a>
+              <a
+                href="https://www.instagram.com/chrome.coffee.studio/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-matcha-pale text-matcha font-bold px-6 py-3 rounded-full hover:scale-105 active:scale-95 transition-all duration-300 border border-matcha/20"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                </svg>
+                Instagram
+              </a>
+            </div>
           </motion.div>
         </motion.div>
       </section>
 
       {/* ── FOOTER ── */}
-      <footer className="bg-white py-10 px-6 border-t border-neutral-100">
+      <footer className="bg-cream py-10 px-6 border-t border-neutral-200/50">
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
             <Image
@@ -444,28 +560,26 @@ export default function Home() {
               alt="Chrome Coffee Studio"
               width={100}
               height={40}
-              className="w-20 h-auto"
+              className="w-20 h-auto logo-blend"
             />
             <span className="text-neutral-400 text-sm">Torrance, CA</span>
           </div>
 
-          <div className="flex items-center gap-4">
-            <a
-              href="https://instagram.com/chromecoffeestudio"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-neutral-400 hover:text-matcha transition-colors"
-              aria-label="Instagram"
+          <a
+            href="https://www.instagram.com/chrome.coffee.studio/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-neutral-400 hover:text-matcha transition-colors"
+            aria-label="Instagram"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="currentColor"
+              viewBox="0 0 24 24"
             >
-              <svg
-                className="w-6 h-6"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-              </svg>
-            </a>
-          </div>
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+            </svg>
+          </a>
 
           <p className="text-neutral-300 text-xs">
             &copy; 2025 Chrome Coffee Studio
