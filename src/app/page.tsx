@@ -323,9 +323,15 @@ export default function Home() {
       {/* Menu Modal */}
       {menuOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4"
+          className="fixed inset-0 z-50 flex flex-col items-center bg-black/85 backdrop-blur-md p-4 overflow-y-auto"
           onClick={() => setMenuOpen(false)}
         >
+          <button
+            onClick={() => setMenuOpen(false)}
+            className="sticky top-4 self-end z-10 bg-dark-elevated/90 backdrop-blur-sm rounded-full w-10 h-10 flex items-center justify-center text-chrome-light hover:text-white transition-colors text-xl border border-dark-border mb-4 shrink-0"
+          >
+            &times;
+          </button>
           <motion.div
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -333,12 +339,6 @@ export default function Home() {
             className="relative max-w-2xl w-full"
             onClick={(e) => e.stopPropagation()}
           >
-            <button
-              onClick={() => setMenuOpen(false)}
-              className="absolute -top-3 -right-3 z-10 bg-dark-elevated rounded-full w-9 h-9 flex items-center justify-center text-chrome-light hover:text-white transition-colors text-lg border border-dark-border"
-            >
-              &times;
-            </button>
             <Image
               src="/images/menu.webp"
               alt="Chrome Coffee Studio full menu"
