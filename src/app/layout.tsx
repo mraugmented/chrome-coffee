@@ -1,17 +1,24 @@
 import type { Metadata } from "next";
-import { Quicksand } from "next/font/google";
+import { DM_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import Script from "next/script";
 import "./globals.css";
 
-const quicksand = Quicksand({
+const swomp = localFont({
+  src: "../../public/fonts/Swomp-Regular.ttf",
+  variable: "--font-swomp",
+  display: "swap",
+});
+
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-quicksand",
+  variable: "--font-dm-sans",
 });
 
 export const metadata: Metadata = {
   title: "Chrome Coffee Studio | Torrance, CA",
   description:
-    "Torrance's favorite coffee studio. Signature lattes, matcha, and good vibes.",
+    "Torrance's favorite coffee studio. Signature lattes, matcha, and good vibes. 2734 Sepulveda Blvd, Torrance, CA 90505.",
   openGraph: {
     title: "Chrome Coffee Studio",
     description:
@@ -26,10 +33,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${quicksand.variable} h-full`}>
+    <html lang="en" className={`${swomp.variable} ${dmSans.variable} h-full`}>
       <body
         className="min-h-full flex flex-col antialiased"
-        style={{ fontFamily: "var(--font-quicksand), system-ui, sans-serif" }}
+        style={{ fontFamily: "var(--font-dm-sans), system-ui, sans-serif" }}
       >
         {children}
         <Script

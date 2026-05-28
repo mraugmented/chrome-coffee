@@ -1,0 +1,10 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="chrome3" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.1"/>
+      <stop offset="50%" style="stop-color:#b0b0b0;stop-opacity:0.06"/>
+      <stop offset="100%" style="stop-color:#d0d0d0;stop-opacity:0.12"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#chrome3)" d="M47.7,-79.1C62.1,-72.5,74.2,-60.5,81.2,-46.1C88.2,-31.7,90.1,-15.9,87.8,-1.3C85.5,13.2,79,26.4,70.8,38.2C62.6,50,52.7,60.4,40.7,67.9C28.7,75.4,14.4,80,-1.4,82.4C-17.2,84.8,-34.4,85,-48,78.5C-61.6,72,-71.6,58.8,-78.1,44.2C-84.6,29.6,-87.6,13.6,-86.2,0.8C-84.8,-12,-79,-24,-71,-34.5C-63,-45,-52.8,-54,-41.1,-62C-29.4,-70,-14.7,-77,1.2,-79C17.1,-81,34.2,-78,47.7,-79.1Z" transform="translate(100 100)"/>
+</svg>
